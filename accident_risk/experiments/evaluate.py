@@ -2,7 +2,7 @@ import mlflow
 from sklearn.model_selection import GridSearchCV
 
 from accident_risk.config import CV_SPLITS, MLFLOW_TRACKING_URI, RAW_TRAIN_PATH
-from accident_risk.data.utils import load_X_y
+from accident_risk.data.load import load_X_y
 
 
 def eval_with_cv(
