@@ -23,6 +23,7 @@ dependencies = [
     "python-dotenv",
     "ruff",
     "seaborn>=0.13.2",
+    "typer>=0.19.2",
 ]
 requires-python = "~=3.10.0"
 
