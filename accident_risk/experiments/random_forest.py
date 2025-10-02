@@ -2,6 +2,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
+from sklearn.feature_selection import SelectKBest
 
 from accident_risk.config import CATEGORICAL_FEATURES, NUMERICAL_FEATURES, ORDINAL_FEATURES
 from accident_risk.experiments.evaluate import eval_with_cv
@@ -17,9 +18,17 @@ def build_random_forest():
         ]
     )
 
+    SelectKBest(k=10)
+
     rf = RandomForestRegressor(random_state=42)
 
-    pipeline = Pipeline(steps=[("preprocessor", preprocessor), ("rf", rf)])
+    pipeline = Pipeline(
+        steps=[
+            ("preprocessor", preprocessor),
+            ("feature_selection", SelectKBest(k=10)),
+            ("rf", rf),
+        ]
+    )
 
     param_grid = {}
 
