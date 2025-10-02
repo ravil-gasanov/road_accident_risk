@@ -19,6 +19,7 @@ def eval_with_cv(
         param_grid=param_grid,
         cv=CV_SPLITS,
         scoring="neg_root_mean_squared_error",
+        n_jobs=-1,
     )
 
     with mlflow.start_run():
