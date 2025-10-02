@@ -24,7 +24,7 @@ def eval_with_cv(
     with mlflow.start_run():
         gridcv.fit(X, y)
 
+        mlflow.sklearn.log_model(gridcv.best_estimator_, f"{experiment_name}_model")
         mlflow.log_params(gridcv.best_params_)
-        mlflow.log_metric("rmse_best_score", -gridcv.best_score_)
 
-        mlflow.sklearn.log_model(gridcv.best_estimator_, "baseline_model")
+        mlflow.log_metric("rmse", -gridcv.best_score_)
