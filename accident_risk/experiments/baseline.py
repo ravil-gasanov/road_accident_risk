@@ -3,6 +3,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import Pipeline
 
 from accident_risk.experiments.evaluate import eval_with_cv
+from accident_risk.utils import make_experiment_name
 
 
 def build_baseline():
@@ -26,7 +27,7 @@ def build_baseline():
 def run_baseline():
     model, param_grid = build_baseline()
     eval_with_cv(
-        experiment_name="baseline",
+        experiment_name=make_experiment_name(__file__),
         model=model,
         param_grid=param_grid,
     )
