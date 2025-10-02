@@ -12,20 +12,17 @@ from accident_risk.utils import make_experiment_name
 def build_random_forest():
     preprocessor = ColumnTransformer(
         transformers=[
-            ("num", StandardScaler(), NUMERICAL_FEATURES),
-            ("ord", "passthrough", ORDINAL_FEATURES),
-            ("cat", OneHotEncoder(), CATEGORICAL_FEATURES),
+            ("num", "passthrough", ["curvature"]),
+            ("ord", "passthrough", ["speed_limit", "num_reported_accidents"]),
+            ("cat", OneHotEncoder(), ["lighting", "weather"]),
         ]
     )
-
-    SelectKBest(k=10)
 
     rf = RandomForestRegressor(random_state=42)
 
     pipeline = Pipeline(
         steps=[
             ("preprocessor", preprocessor),
-            ("feature_selection", SelectKBest(k=10)),
             ("rf", rf),
         ]
     )
