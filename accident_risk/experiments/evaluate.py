@@ -25,7 +25,14 @@ def eval_with_cv(
     with mlflow.start_run():
         gridcv.fit(X, y)
 
-        mlflow.sklearn.log_model(gridcv.best_estimator_, f"{experiment_name}_model")
+        model = gridcv.best_estimator_
+
+        mlflow.sklearn.log_model(
+            sk_model=model,
+            name=f"{experiment_name}_model",
+            input_example=X.head(1),  # Optional: Provide an input example
+            signature=mlflow.models.infer_signature(X, model.predict(X)),
+        )
         mlflow.log_params(gridcv.best_params_)
 
         mlflow.log_metric("rmse", -gridcv.best_score_)
