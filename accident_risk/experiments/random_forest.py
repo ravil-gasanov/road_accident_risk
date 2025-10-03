@@ -12,8 +12,8 @@ from accident_risk.utils import make_experiment_name
 def build_random_forest():
     preprocessor = ColumnTransformer(
         transformers=[
-            ("num", "passthrough", ["curvature"]),
-            ("ord", "passthrough", ["speed_limit", "num_reported_accidents"]),
+            ("num", StandardScaler(), ["curvature"]),
+            ("ord", StandardScaler(), ["speed_limit", "num_reported_accidents"]),
             ("cat", OneHotEncoder(), ["lighting", "weather"]),
         ]
     )
